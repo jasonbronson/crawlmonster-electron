@@ -57,17 +57,17 @@
 import imageparser from '../libraries/imageparser'
 const {dialog} = require('electron').remote
   export default {
-    name: 'landing-page',
+    name: 'signin-page',
     data() {
       return {
         imageUrl: './src/renderer/assets/background-signup.png',
         email: 'jasonbronson@gmail.com',
-        password: 'adminjtest'
+        password: ''
       }
     },
     computed: {
-      getDirectory () {
-        return this.$store.getters.getDirectoryPath.toString()
+      getTest () {
+        return null
       }
     },
     methods: {
@@ -80,8 +80,12 @@ const {dialog} = require('electron').remote
 
           this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
           .then( () => {
-              console.log('Success');
               this.$toasted.show(' Successfully logged in').goAway(2500);
+              var user = this.$firebase.auth().currentUser;
+              this.$store.commit('setUser', user);
+              console.log(user);
+              console.log('Success ');
+
               this.$router.replace({ name: "main" });
           })
           .catch( (error) => {

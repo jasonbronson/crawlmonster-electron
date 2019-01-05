@@ -34,8 +34,7 @@ window.App = new Vue({
   components: { App },
   router,
   template: '<App/>',
-  http,
-  toasted
+  http
 }).$mount('#app')
 
 var config = {

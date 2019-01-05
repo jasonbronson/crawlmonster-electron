@@ -5,6 +5,8 @@
 
 const files = require.context('.', false, /\.js$/)
 const modules = {}
+//setting objects requires strict false
+export const strict = false
 
 files.keys().forEach(key => {
   if (key === './index.js') return

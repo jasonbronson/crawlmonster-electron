@@ -54,6 +54,9 @@ const {dialog} = require('electron').remote
     computed: {
       getDirectory () {
         return this.$store.getters.getDirectoryPath.toString()
+      },
+      getUser(){
+        return this.$store.getters.getUser();
       }
     },
     methods: {

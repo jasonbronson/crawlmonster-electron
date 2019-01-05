@@ -46,19 +46,19 @@
 import imageparser from '../libraries/imageparser'
 const {dialog} = require('electron').remote
   export default {
-    name: 'landing-page',
+    name: 'signup-page',
     data() {
       return {
         url: 'https://crawlmonster.com',
         version: '.01',
         imageUrl: './src/renderer/assets/background-signup.png',
-        password: 'adminj',
-        email: 'jasonbronson@gmail.com'
+        password: '',
+        email: ''
       }
     },
     computed: {
-      getDirectory () {
-        return this.$store.getters.getDirectoryPath.toString()
+      getTest () {
+        return null
       }
     },
     methods: {
@@ -69,7 +69,10 @@ const {dialog} = require('electron').remote
           .then( () => {
 
             this.$toasted.show(' Successfully created your account ').goAway(2500);
-            console.log('Success');
+            var user = this.$firebase.auth().currentUser;
+            this.$store.commit('setUser', user);
+            console.log(user);
+            console.log('Success ');
             this.$router.replace({ name: "main" });
 
           })
