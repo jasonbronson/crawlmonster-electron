@@ -52,8 +52,8 @@ const {dialog} = require('electron').remote
         url: 'https://crawlmonster.com',
         version: '.01',
         imageUrl: './src/renderer/assets/background-signup.png',
-        password: '',
-        email: ''
+        password: 'adminj',
+        email: 'jasonbronson@gmail.com'
       }
     },
     computed: {
@@ -66,19 +66,22 @@ const {dialog} = require('electron').remote
       createAccount() {
 
           this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-          .then(function(){
+          .then( () => {
 
+            this.$toasted.show(' Successfully created your account ').goAway(2500);
             console.log('Success');
             this.$router.replace({ name: "main" });
 
           })
-          .catch(function(error){
-            if(error != null){
-              console.log(error.code);
-              console.log(error.message);
-              //show error on screen
-              return;
-            }
+          .catch( (error) => {
+              console.log(error.code + ' ' + error.message);
+              if(error.code == "auth/email-already-in-use"){
+                this.$toasted.show(' You already have an account. Please sign in instead').goAway(3500);
+              }else{
+                this.$toasted.show(' Creating account failed contact support or try later').goAway(2500);
+              }
+
+              
           });
 
           

@@ -82,15 +82,14 @@ const {dialog} = require('electron').remote
           .then( () => {
               console.log('Success');
               this.$toasted.show(' Successfully logged in').goAway(2500);
-              //this.$router.replace({ name: "main" });
+              this.$router.replace({ name: "main" });
           })
           .catch( (error) => {
              
               console.log(error.code + ' ' + error.message);
               //show error on screen
               this.$toasted.global.error(' Login Failed').goAway(2500);
-              return;
-            
+             
           });
         
       }
