@@ -16,20 +16,21 @@
                     <form id="edit-project" class="form-horizontal col-md-12 fv-form fv-form-bootstrap" role="form" data-fv-framework="bootstrap" data-fv-icon-valid="glyphicon glyphicon-ok" data-fv-icon-invalid="glyphicon glyphicon-remove" data-fv-icon-validating="glyphicon glyphicon-refresh" novalidate="novalidate">
                         <div class="form-group row">
                                 <div class="col-sm-12">
-                                <input type="text" name="username" value="" placeholder="Username" class="forminput-sign-txt">
+                                <input type="text" name="email" value="" placeholder="Email" class="forminput-sign-txt"  v-model="email">
                                 </div>
                         </div>
                         <div class="form-group row">
                                 <div class="col-sm-12">
-                                <input type="text" name="password" value="" placeholder="Password" class="forminput-sign-txt">
+                                <input type="password" name="password" value="" placeholder="Password" class="forminput-sign-txt" v-model="password">
                                 </div>
                         </div>
                         <div class="form-group row lightgrey small-font">
-                                <div class="col-sm-3 offset-md-3">
-                                    <input type="checkbox" name="remember_me" value="" class="forminput-sign-checkbox"> Remember me
-                                    </div>
+                                <div class="col-sm-3 offset-md-4">
+                                   <!-- <input type="checkbox" name="remember_me" value="" class="forminput-sign-checkbox"> Remember me -->
+                                   <a href="#" class="forgot-password" @click="login">Forgot Password</a>
+                                </div>
                                 <div class="col-sm-3">
-                                    <a href="#" class="forgot-password" @click="login">Forgot Password</a>
+                                   
                                 </div>
                         </div>
                         <div class="form-group row">
@@ -61,7 +62,9 @@ const {dialog} = require('electron').remote
       return {
         url: "https://crawlmonster.com",
         version: ".01",
-        imageUrl: './src/renderer/assets/background-signup.png'
+        imageUrl: './src/renderer/assets/background-signup.png',
+        email: '',
+        password: ''
       }
     },
     computed: {
@@ -77,6 +80,25 @@ const {dialog} = require('electron').remote
       login() {
           this.errors = [];
 
+          this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+          .then(function(){
+
+              console.log('Success');
+              alert('logged in success');
+              this.$router.replace({ name: "main" });
+
+          })
+          .catch(function(error){
+            if(error != null){
+              console.log(error.code);
+              console.log(error.message);
+              //show error on screen
+              return;
+            }
+            
+          });
+
+          
         //   if (!this.url) {
         //     this.errors.push('Url required.');
         //     return;
@@ -84,8 +106,7 @@ const {dialog} = require('electron').remote
         //     this.errors.push('Valid URL required.');
         //     return;
         //   }
-          console.log("*");
-          this.$router.replace({ name: "main" });
+          
 
         
       }

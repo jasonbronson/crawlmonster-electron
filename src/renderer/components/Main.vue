@@ -10,9 +10,12 @@
   export default {
     name: 'scrape-images',
     components: { SideBar },
-    showMenu() {
-        return this.$route.name !== 'signin' && this.$route.name !== 'signup';
+    computed: {
+        showMenu() {
+            return this.$route.name !== 'signin' && this.$route.name !== 'signup';
+        }
     }
+    
   }
 </script>
 

@@ -16,24 +16,20 @@
                     <form id="edit-project" class="form-horizontal col-md-12 fv-form fv-form-bootstrap" role="form" data-fv-framework="bootstrap" data-fv-icon-valid="glyphicon glyphicon-ok" data-fv-icon-invalid="glyphicon glyphicon-remove" data-fv-icon-validating="glyphicon glyphicon-refresh" novalidate="novalidate">
                         <div class="form-group row">
                               <div class="col-sm-12">
-                                <input type="text" name="username" value="" placeholder="Username" class="forminput-sign-txt">
+                                <input type="text" name="email" value="" placeholder="Email" class="forminput-sign-txt" v-model.trim="email" v-model="email">
                               </div>
                         </div>
                         <div class="form-group row">
                               <div class="col-sm-12">
-                                <input type="text" name="password" value="" placeholder="Password" class="forminput-sign-txt">
+                                <input type="password" name="password" value="" placeholder="Password" class="forminput-sign-txt" v-model="password">
                               </div>
                         </div>
-                        <div class="form-group row">
-                              <div class="col-sm-12">
-                                <input type="text" name="email" value="" placeholder="Email" class="forminput-sign-txt">
-                              </div>
-                        </div>
+                        
                         <div class="form-group row">
                                 
                         </div>
                       
-                        <button type="button" class="btn btn-default" @click="login">Create Account</button>
+                        <button type="button" class="btn btn-default" @click="createAccount">Create Account</button>
                         <button type="button" class="btn btn-default btn-white" @click="signin">Sign In</button>
                         
                     </form>
@@ -53,9 +49,11 @@ const {dialog} = require('electron').remote
     name: 'landing-page',
     data() {
       return {
-        url: "https://crawlmonster.com",
-        version: ".01",
-        imageUrl: './src/renderer/assets/background-signup.png'
+        url: 'https://crawlmonster.com',
+        version: '.01',
+        imageUrl: './src/renderer/assets/background-signup.png',
+        password: '',
+        email: ''
       }
     },
     computed: {
@@ -65,24 +63,28 @@ const {dialog} = require('electron').remote
     },
     methods: {
 
-      signin(){
-          this.$router.replace({ name: "signin" });
+      createAccount() {
+
+          this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error){
+            if(error != null){
+              console.log(error.code);
+              console.log(error.message);
+              //show error on screen
+              return;
+            }
+            
+          });
+
+          console.log('Success');
+          alert('logged in success');
+          this.$router.replace({ name: "main" });
+
       },
-      login() {
-          this.errors = [];
-
-        //   if (!this.url) {
-        //     this.errors.push('Url required.');
-        //     return;
-        //   } else if (!this.validUrl(this.url)) {
-        //     this.errors.push('Valid URL required.');
-        //     return;
-        //   }
-          console.log("*");
+      signin() {
+          //go back to signin          
           this.$router.replace({ name: "signin" });
 
-        
-      }
+      },
       
     }
   }

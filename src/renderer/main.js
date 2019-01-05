@@ -22,18 +22,30 @@ Vue.config.productionTip = false
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+const http = axios.create({
+  baseURL: 'https://crawlmonster.test/api/',
+  timeout: 8000,
+  headers: {'X-Custom-Header': 'Crawlmonster Electron App'}
+});
+
+
 /* eslint-disable no-new */
-new Vue({
+window.App = new Vue({
   store,
   components: { App },
   router,
-  template: '<App/>'
+  template: '<App/>',
+  http
 }).$mount('#app')
+
 
 var config = {
   apiKey: "AIzaSyB47RcVszIVsIiwvCvnCk_UX0N0UDTgoF8",
-  //authDomain: "crawlmonster-com.firebaseapp.com",
+  authDomain: "crawlmonster-com.firebaseapp.com",
   databaseURL: "https://crawlmonster-com.firebaseio.com",
+  projectId: "crawlmonster-com",
   storageBucket: "crawlmonster-com.appspot.com",
+  messagingSenderId: "773666620772"
 };
 firebase.initializeApp(config);
+Vue.prototype.$firebase = firebase
