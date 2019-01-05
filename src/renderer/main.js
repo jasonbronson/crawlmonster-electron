@@ -5,7 +5,7 @@ import axios from 'axios'
 import App from './App'
 import router from './router'
 import store from './store'
-import Toasted from './toasted'
+import toasted from './toasted'
 import firebase from 'firebase'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -28,16 +28,15 @@ const http = axios.create({
   headers: {'X-Custom-Header': 'Crawlmonster Electron App'}
 });
 
-
 /* eslint-disable no-new */
 window.App = new Vue({
   store,
   components: { App },
   router,
   template: '<App/>',
-  http
+  http,
+  toasted
 }).$mount('#app')
-
 
 var config = {
   apiKey: "AIzaSyB47RcVszIVsIiwvCvnCk_UX0N0UDTgoF8",

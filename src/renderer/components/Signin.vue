@@ -60,11 +60,9 @@ const {dialog} = require('electron').remote
     name: 'landing-page',
     data() {
       return {
-        url: "https://crawlmonster.com",
-        version: ".01",
         imageUrl: './src/renderer/assets/background-signup.png',
-        email: '',
-        password: ''
+        email: 'jasonbronson@gmail.com',
+        password: 'adminjtest'
       }
     },
     computed: {
@@ -74,40 +72,26 @@ const {dialog} = require('electron').remote
     },
     methods: {
 
-      signup(){ 
+      signup(){
           this.$router.replace({ name: "signup" });
       },
       login() {
           this.errors = [];
 
           this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-          .then(function(){
-
+          .then( () => {
               console.log('Success');
-              alert('logged in success');
-              this.$router.replace({ name: "main" });
-
+              this.$toasted.show(' Successfully logged in').goAway(2500);
+              //this.$router.replace({ name: "main" });
           })
-          .catch(function(error){
-            if(error != null){
-              console.log(error.code);
-              console.log(error.message);
+          .catch( (error) => {
+             
+              console.log(error.code + ' ' + error.message);
               //show error on screen
+              this.$toasted.global.error(' Login Failed').goAway(2500);
               return;
-            }
             
           });
-
-          
-        //   if (!this.url) {
-        //     this.errors.push('Url required.');
-        //     return;
-        //   } else if (!this.validUrl(this.url)) {
-        //     this.errors.push('Valid URL required.');
-        //     return;
-        //   }
-          
-
         
       }
       

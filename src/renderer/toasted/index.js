@@ -3,6 +3,26 @@ import Vue from 'vue';
 
 Vue.use(Toasted)
 
-Vue.toasted.register('app_error', 'Oops.. Something Went Wrong..', {
+let options = {
+    type : 'error',
+    icon : 'error_outline',
+    iconPack: 'fontawesome'
+};
+
+Vue.toasted.register('app_crash', 'Oops.. Something Went Wrong..', {
     type : 'error'
 })
+
+Vue.toasted.register('error',
+    (payload) => {
+        
+        // if there is no message passed show default message
+        if(! payload) {
+    	    return "Oops.. Something Went Wrong.."
+        }
+        
+        // if there is a message show it with the message
+        return "Error " + payload;
+    },
+    options
+)

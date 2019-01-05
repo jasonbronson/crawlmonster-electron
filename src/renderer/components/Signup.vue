@@ -65,25 +65,27 @@ const {dialog} = require('electron').remote
 
       createAccount() {
 
-          this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error){
+          this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          .then(function(){
+
+            console.log('Success');
+            this.$router.replace({ name: "main" });
+
+          })
+          .catch(function(error){
             if(error != null){
               console.log(error.code);
               console.log(error.message);
               //show error on screen
               return;
             }
-            
           });
 
-          console.log('Success');
-          alert('logged in success');
-          this.$router.replace({ name: "main" });
-
+          
       },
       signin() {
-          //go back to signin          
+          //go back to signin screen          
           this.$router.replace({ name: "signin" });
-
       },
       
     }

@@ -7,10 +7,8 @@
 </template>
 
 <script>
- //import SigninView from './components/Signin'
   export default { 
-    name: 'crawler',
-    //components: { SigninView }
+    name: 'crawler'
   }
 </script>
 
