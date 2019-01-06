@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-heading">
-                    <h3 class="card-title"> Welcome to Crawlmonster </h3>
+                    <h3 class="card-title"> Welcome {{getUser().userDisplayName}}</h3>
                 </div>
                 <div class="card-body">
 
@@ -54,13 +54,16 @@ const {dialog} = require('electron').remote
     computed: {
       getDirectory () {
         return this.$store.getters.getDirectoryPath.toString()
-      },
-      getUser(){
-        return this.$store.getters.getUser();
       }
+      
     },
     methods: {
-
+      getUser (){
+        let user = this.$store.getters.getUser;
+        console.log(user);
+        console.log("**");
+        return user;
+      },
       run() {
           this.errors = [];
 
