@@ -8,17 +8,14 @@ export default new Router({
     {
       path: '/',
       name: 'signin',
+      meta: { layout: 'no-sidebar' },
       component: require('@/components/Signin').default
     },
     {
       path: '/signup-page',
       name: 'signup',
+      meta: { layout: 'no-sidebar' },
       component: require('@/components/Signup').default
-    },
-    {
-      path: '/main-page',
-      name: 'main',
-      component: require('@/components/Main').default
     },
     {
       path: '/landing-page',

@@ -86,7 +86,7 @@ const {dialog} = require('electron').remote
               console.log(user);
               console.log('Success ');
 
-              this.$router.replace({ name: "main" });
+              this.$router.replace({ name: "landing-page" });
           })
           .catch( (error) => {
              

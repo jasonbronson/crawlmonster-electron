@@ -7,7 +7,7 @@
 
         <ul class="nav flex-column">
             <li class="nav-item active">
-              <router-link to="/dashboard" class="nav-link">
+              <router-link to="/landing-page" class="nav-link">
                   <font-awesome-icon icon="home" />
                   Home
               </router-link>

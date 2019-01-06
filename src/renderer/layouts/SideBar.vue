@@ -1,26 +1,22 @@
 <template>
+  <!-- Sidebar  -->
     <div class="main-view">
-      <side-bar v-if="showMenu"></side-bar>
-      <router-view></router-view>
+      <side-bar></side-bar>
+      <slot></slot>
     </div>
 </template>
 
 <script>
-  import SideBar from './SideBar'
-  export default {
-    name: 'scrape-images',
-    components: { SideBar },
-    computed: {
-        showMenu() {
-            return this.$route.name !== 'signin' && this.$route.name !== 'signup';
-        }
-    }
-    
+import SideBar from '@/components/SideBar';
+
+export default {
+  components: {
+    SideBar
   }
+};
 </script>
 
 <style>
-  /* CSS */
 html, body {
     height: 100%;
 }
@@ -45,16 +41,6 @@ html, body {
 .btn-default{
     margin-right: 20px;
 }
-.signin .card{
-  padding-top: 80px;  
-  border:0 !important;
-  text-align: center;
-  line-height: 3;
-  height:100%;
-}
-.signin .card-title{
-    letter-spacing: .5rem;
-}
 .forminput-sign-txt {
   border: 0;
   outline: 0;
@@ -68,9 +54,5 @@ html, body {
 .small-font a, .small-font{
     font-size: .9rem;
 }
-.login-header .card-title{
-    color: #32314F;
-    line-height: 2;
-    
-}
 </style>
+
